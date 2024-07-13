@@ -1,0 +1,80 @@
+ 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.animate-border-flow {
+  background: linear-gradient(
+    60deg,
+    #4f46e5,
+    #7c3aed,
+    #8b5cf6,
+    #a78bfa,
+    #c4b5fd,
+    #818cf8,
+    #6366f1,
+    #4f46e5
+  );
+  background-size: 300% 300%;
+  background-clip: padding-box;
+}
+ 
+  @keyframes rotateY {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
+  }
+  
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .perspective-500 {
+    perspective: 500px;
+  }
+  
+  .animate-3d-rotate {
+    animation: rotateY 5s linear infinite;
+    transform-style: preserve-3d;
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+
+/* Custom scrollbar styles */
+ 
+body {
+  @apply bg-gray-900;
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-purple-600 rounded;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-purple-700;
+}
+
+/* Glassmorphism */
+.glassmorphism {
+  @apply bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg;
+}
+
+/* Fancy focus styles */
+.focus-within\:ring-2:focus-within {
+  @apply ring-2 ring-purple-500 ring-opacity-50;
+}
