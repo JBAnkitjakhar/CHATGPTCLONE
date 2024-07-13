@@ -1,4 +1,3 @@
-// src/app/api/auth/[...nextauth]/route.ts
 import mongoose from "mongoose";
 import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -15,18 +14,26 @@ if (!MONGODB_URI) {
   );
 }
 
+// Update the global declaration
 declare global {
   var _mongoClientPromise: Promise<MongoClient> | undefined;
 }
 
 let clientPromise: Promise<MongoClient>;
 
-if (!global._mongoClientPromise) {
+if (process.env.NODE_ENV === "development") {
+  // In development mode, use a global variable so that the value
+  // is preserved across module reloads caused by HMR (Hot Module Replacement).
+  if (!global._mongoClientPromise) {
+    const client = new MongoClient(MONGODB_URI);
+    global._mongoClientPromise = client.connect();
+  }
+  clientPromise = global._mongoClientPromise;
+} else {
+  // In production mode, it's best to not use a global variable.
   const client = new MongoClient(MONGODB_URI);
-  global._mongoClientPromise = client.connect();
+  clientPromise = client.connect();
 }
-
-clientPromise = global._mongoClientPromise;
 
 export const authOptions: AuthOptions = {
   adapter: MongoDBAdapter(clientPromise),
