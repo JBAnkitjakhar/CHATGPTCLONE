@@ -1,7 +1,7 @@
 //src/app/api/chat/[chatId]/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "../../auth/[...nextauth]/authOptions";
 import User from "@/models/User";
 import connectDB from "@/lib/mongodb";
 import OpenAI from "openai";

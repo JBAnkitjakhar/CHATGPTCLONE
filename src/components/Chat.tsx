@@ -1,4 +1,5 @@
 // src/components/Chat.tsx
+
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { PaperAirplaneIcon } from '@heroicons/react/24/solid';

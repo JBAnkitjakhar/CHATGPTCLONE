@@ -12,6 +12,36 @@ import { useLoading } from "@/contexts/LoadingContext";
 import { useUser } from "@/contexts/UserContext";
 import { ChatInfo, GroupedChats } from "@/types/chat";
 
+const groupChatsByDate = (chats: ChatInfo[]): GroupedChats => {
+  const grouped: GroupedChats = {
+    "Today": [],
+    "Yesterday": [],
+    "Previous 7 Days": [],
+    "Previous 30 Days": []
+  };
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+
+  const yesterday = new Date(now);
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  chats.forEach(chat => {
+    const chatDate = new Date(chat.createdAt);
+    
+    if (chatDate >= now) {
+      grouped["Today"].push(chat);
+    } else if (chatDate >= yesterday) {
+      grouped["Yesterday"].push(chat);
+    } else if (chatDate >= new Date(now.setDate(now.getDate() - 7))) {
+      grouped["Previous 7 Days"].push(chat);
+    } else if (chatDate >= new Date(now.setDate(now.getDate() - 30))) {
+      grouped["Previous 30 Days"].push(chat);
+    }
+  });
+
+  return grouped;
+};
+
 export default function Dashboard() {
   const [leftWidth, setLeftWidth] = useState(20);
   const [middleWidth, setMiddleWidth] = useState(60);
@@ -45,37 +75,6 @@ export default function Dashboard() {
     loadDashboardData();
   }, [loadDashboardData]);
 
-  const groupChatsByDate = useCallback((chats: ChatInfo[]): GroupedChats => {
-    const grouped: GroupedChats = {
-      "Today": [],
-      "Yesterday": [],
-      "Previous 7 Days": [],
-      "Previous 30 Days": []
-    };
-    const now = new Date();
-    now.setHours(0, 0, 0, 0);
-
-    // Calculate the start of yesterday
-  const yesterday = new Date(now);
-  yesterday.setDate(yesterday.getDate() - 1);
-
-  chats.forEach(chat => {
-    const chatDate = new Date(chat.createdAt);
-    
-    if (chatDate >= now) {
-      grouped["Today"].push(chat);
-    } else if (chatDate >= yesterday) {
-      grouped["Yesterday"].push(chat);
-    } else if (chatDate >= new Date(now.setDate(now.getDate() - 7))) {
-      grouped["Previous 7 Days"].push(chat);
-    } else if (chatDate >= new Date(now.setDate(now.getDate() - 30))) {
-      grouped["Previous 30 Days"].push(chat);
-    }
-  });
-
-  return grouped;
-}, []);
-
   const handleChatSelect = useCallback((chatId: string) => {
     setCurrentChatId(chatId);
   }, []);
@@ -92,7 +91,7 @@ export default function Dashboard() {
       const newChat: ChatInfo = {
         _id: data.newChat._id,
         title: data.newChat.title,
-        createdAt: new Date().toISOString(),// This ensures UTC time
+        createdAt: new Date().toISOString(),
         messages: []
       };
       setGroupedChats(prev => ({
