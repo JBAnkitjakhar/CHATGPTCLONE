@@ -10,7 +10,7 @@ export default function Home() {
       <div className="w-full max-w-4xl px-4 py-16 text-center">
         <Image src="/radcom.png" alt="Radcom Logo" width={150} height={150} className="mx-auto mb-8" />
         <h1 className="text-6xl font-extrabold mb-4 animate-fade-in-down">
-          Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-pink-500">Free Clubs</span>
+          Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-pink-500">Rajnish Club</span>
         </h1>
         <p className="text-xl mb-12 animate-fade-in-up">Empowering your digital journey with cutting-edgesolutions</p>
         <div className="flex justify-center space-x-6">

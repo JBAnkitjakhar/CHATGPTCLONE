@@ -10,7 +10,7 @@ import { Providers } from "../components/Providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Radcom Application",
+  title: "Free Fire",
   description: "Radcom application",
 };
 
