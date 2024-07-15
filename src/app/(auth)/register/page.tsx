@@ -52,7 +52,7 @@ export default function Register() {
           <div className="animate-float mb-8" style={{ animationDuration: '3s' }}>
             <Image src="/radcom.png" alt="Radcom Logo" width={150} height={150} className="drop-shadow-xl" />
           </div>
-          <h2 className="text-4xl font-bold text-white mb-4 animate-fade-in-down">Join Radcom</h2>
+          <h2 className="text-4xl font-bold text-white mb-4 animate-fade-in-down">Join Club</h2>
           <p className="text-gray-200 mb-8 text-center animate-fade-in-up">Create an account to get started</p>
         </div>
 
